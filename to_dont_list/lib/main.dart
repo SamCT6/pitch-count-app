@@ -1,7 +1,7 @@
 // Started with https://docs.flutter.dev/development/ui/widgets-intro
 import 'package:flutter/material.dart';
-import 'package:to_dont_list/objects/item.dart';
-import 'package:to_dont_list/widgets/to_do_items.dart';
+import 'package:to_dont_list/objects/Grocery.dart';
+import 'package:to_dont_list/widgets/to_do_grocery.dart';
 import 'package:to_dont_list/widgets/to_do_dialog.dart';
 
 class ToDoList extends StatefulWidget {
@@ -12,43 +12,44 @@ class ToDoList extends StatefulWidget {
 }
 
 class _ToDoListState extends State<ToDoList> {
-  final List<Item> items = [const Item(name: "add more todos")];
-  final _itemSet = <Item>{};
+  final List<Grocery> grocerys = [Grocery(name: "add more todos", price: 0)];
+  final _groceryset = <Grocery>{};
 
-  void _handleListChanged(Item item, bool completed) {
+  void _handleListChanged(Grocery grocery, bool completed) {
     setState(() {
       // When a user changes what's in the list, you need
-      // to change _itemSet inside a setState call to
+      // to change _groceryset inside a setState call to
       // trigger a rebuild.
       // The framework then calls build, below,
       // which updates the visual appearance of the app.
 
-      items.remove(item);
+      grocerys.remove(grocery);
       if (!completed) {
         print("Completing");
-        _itemSet.add(item);
-        items.add(item);
+        _groceryset.add(grocery);
+        grocerys.add(grocery);
       } else {
         print("Making Undone");
-        _itemSet.remove(item);
-        items.insert(0, item);
+        _groceryset.remove(grocery);
+        grocerys.insert(0, grocery);
       }
     });
   }
 
-  void _handleDeleteItem(Item item) {
+  void _handleDeleteGrocery(Grocery grocery) {
     setState(() {
-      print("Deleting item");
-      items.remove(item);
+      print("Deleting Grocery");
+      grocerys.remove(grocery);
     });
   }
 
-  void _handleNewItem(String itemText, TextEditingController textController) {
+  void _handleNewGrocery(int price, String groceryText, TextEditingController textController, TextEditingController textController2) {
     setState(() {
-      print("Adding new item");
-      Item item = Item(name: itemText);
-      items.insert(0, item);
+      print("Adding new Grocery");
+      Grocery grocery = Grocery(name: groceryText, price: price);
+      grocerys.insert(0, grocery);
       textController.clear();
+      textController2.clear();
     });
   }
 
@@ -60,12 +61,12 @@ class _ToDoListState extends State<ToDoList> {
         ),
         body: ListView(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          children: items.map((item) {
-            return ToDoListItem(
-              item: item,
-              completed: _itemSet.contains(item),
+          children: grocerys.map((grocery) {
+            return ToDoListGrocery(
+              grocery: grocery,
+              completed: _groceryset.contains(grocery),
               onListChanged: _handleListChanged,
-              onDeleteItem: _handleDeleteItem,
+              onDeleteGrocery: _handleDeleteGrocery,
             );
           }).toList(),
         ),
@@ -75,7 +76,7 @@ class _ToDoListState extends State<ToDoList> {
               showDialog(
                   context: context,
                   builder: (_) {
-                    return ToDoDialog(onListAdded: _handleNewItem);
+                    return ToDoDialog(onListAdded: _handleNewGrocery);
                   });
             }));
   }
@@ -83,7 +84,7 @@ class _ToDoListState extends State<ToDoList> {
 
 void main() {
   runApp(const MaterialApp(
-    title: 'To Do List',
+    title: 'Grossary List',
     home: ToDoList(),
   ));
 }

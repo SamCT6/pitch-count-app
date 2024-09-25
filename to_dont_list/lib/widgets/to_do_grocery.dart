@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:to_dont_list/objects/item.dart';
+import 'package:to_dont_list/objects/Grocery.dart';
 
-typedef ToDoListChangedCallback = Function(Item item, bool completed);
-typedef ToDoListRemovedCallback = Function(Item item);
+typedef ToDoListChangedCallback = Function(Grocery grocery, bool completed);
+typedef ToDoListRemovedCallback = Function(Grocery grocery);
 
-class ToDoListItem extends StatelessWidget {
-  ToDoListItem(
-      {required this.item,
+class ToDoListGrocery extends StatelessWidget {
+  ToDoListGrocery(
+      {required this.grocery,
       required this.completed,
       required this.onListChanged,
-      required this.onDeleteItem})
-      : super(key: ObjectKey(item));
+      required this.onDeleteGrocery})
+      : super(key: ObjectKey(grocery));
 
-  final Item item;
+  final Grocery grocery;
   final bool completed;
 
   final ToDoListChangedCallback onListChanged;
-  final ToDoListRemovedCallback onDeleteItem;
+  final ToDoListRemovedCallback onDeleteGrocery;
 
   Color _getColor(BuildContext context) {
     // The theme depends on the BuildContext because different
@@ -33,7 +33,7 @@ class ToDoListItem extends StatelessWidget {
     if (!completed) return null;
 
     return const TextStyle(
-      color: Colors.black54,
+      color: Color.fromARGB(137, 245, 11, 11),
       decoration: TextDecoration.lineThrough,
     );
   }
@@ -42,19 +42,21 @@ class ToDoListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        onListChanged(item, completed);
+        onListChanged(grocery, completed);
       },
       onLongPress: completed
           ? () {
-              onDeleteItem(item);
+              onDeleteGrocery(grocery);
             }
           : null,
-      leading: CircleAvatar(
-        backgroundColor: _getColor(context),
-        child: Text(item.abbrev()),
+      leading: ElevatedButton(
+        onPressed: (){
+            grocery.increase();
+        },
+        child: Text(grocery.increase().toString()),
       ),
       title: Text(
-        item.name,
+        grocery.name,
         style: _getTextStyle(context),
       ),
     );
