@@ -18,26 +18,6 @@ class ToDoListGrocery extends StatelessWidget {
   final ToDoListChangedCallback onListChanged;
   final ToDoListRemovedCallback onDeleteGrocery;
 
-  Color _getColor(BuildContext context) {
-    // The theme depends on the BuildContext because different
-    // parts of the tree can have different themes.
-    // The BuildContext indicates where the build is
-    // taking place and therefore which theme to use.
-
-    return completed //
-        ? Colors.black54
-        : Theme.of(context).primaryColor;
-  }
-
-  TextStyle? _getTextStyle(BuildContext context) {
-    if (!completed) return null;
-
-    return const TextStyle(
-      color: Color.fromARGB(137, 245, 11, 11),
-      decoration: TextDecoration.lineThrough,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -49,15 +29,13 @@ class ToDoListGrocery extends StatelessWidget {
               onDeleteGrocery(grocery);
             }
           : null,
-      leading: ElevatedButton(
-        onPressed: (){
-            grocery.increase();
-        },
+      leading: CircleAvatar(
+
         child: Text(grocery.increase().toString()),
+        
       ),
       title: Text(
         grocery.name,
-        style: _getTextStyle(context),
       ),
     );
   }

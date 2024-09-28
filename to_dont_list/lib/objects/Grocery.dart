@@ -4,11 +4,16 @@ class Grocery {
   Grocery ({required this.name, required this.price});
 
   final String name;
-  final int price;
+  final double price;
   int count = 1;
-
+  double total = 0;
 
   int increase() {
     return count++;
+  }
+
+  double find_total() {
+    total = count * price;
+    return total;
   }
 }

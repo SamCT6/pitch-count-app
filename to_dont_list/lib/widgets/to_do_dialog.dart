@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 typedef ToDoListAddedCallback = Function(
-    int price, String value, TextEditingController textConroller, TextEditingController textController2);
+    double price, String value, TextEditingController textConroller, TextEditingController textController2);
 
 class ToDoDialog extends StatefulWidget {
   const ToDoDialog({
@@ -41,7 +41,6 @@ class _ToDoDialogState extends State<ToDoDialog> {
           TextField(
             controller: _inputController2,
             decoration: const InputDecoration(labelText: 'Price'),
-            //keyboardType: TextInputType.number,
           ),
         ],
       ),
@@ -61,14 +60,14 @@ class _ToDoDialogState extends State<ToDoDialog> {
         // https://stackoverflow.com/questions/52468987/how-to-turn-disabled-button-into-enabled-button-depending-on-conditions
         ValueListenableBuilder<TextEditingValue>(
           valueListenable: _inputController,
-          builder: (context, value, child) {
+          builder: (context, price, child) {
             return ElevatedButton(
               key: const Key("OKButton"),
               style: yesStyle,
-              onPressed: value.text.isNotEmpty && _inputController2.text.isNotEmpty
+              onPressed: price.text.isNotEmpty && _inputController.text.isNotEmpty
                   ? () {
                     String valueText = _inputController.text;
-                    int priceText = int.parse(_inputController2.text);
+                    double priceText = double.parse(_inputController2.text);
                     // https://stackoverflow.com/questions/56207275/how-can-i-get-int-data-from-texteditingcontroller-in-flutter
                     // To change the string pulled from string to an int
                       setState(() {

@@ -12,7 +12,7 @@ class ToDoList extends StatefulWidget {
 }
 
 class _ToDoListState extends State<ToDoList> {
-  final List<Grocery> grocerys = [Grocery(name: "add more todos", price: 0)];
+  final List<Grocery> grocerys = [Grocery(name: "add your grocery", price: 0)];
   final _groceryset = <Grocery>{};
 
   void _handleListChanged(Grocery grocery, bool completed) {
@@ -43,7 +43,7 @@ class _ToDoListState extends State<ToDoList> {
     });
   }
 
-  void _handleNewGrocery(int price, String groceryText, TextEditingController textController, TextEditingController textController2) {
+  void _handleNewGrocery(double price, String groceryText, TextEditingController textController, TextEditingController textController2) {
     setState(() {
       print("Adding new Grocery");
       Grocery grocery = Grocery(name: groceryText, price: price);
@@ -57,7 +57,7 @@ class _ToDoListState extends State<ToDoList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('To Do List'),
+          title: const Text('Grocery'),
         ),
         body: ListView(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
