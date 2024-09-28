@@ -1,5 +1,3 @@
-// Data class to keep the string and have an abbreviation function
-
 class Grocery {
   Grocery ({required this.name, required this.price});
 
@@ -12,7 +10,8 @@ class Grocery {
     return count++;
   }
 
-  double find_total() {
+  double calculateTotal() {
+    count++;
     total = count * price;
     return total;
   }

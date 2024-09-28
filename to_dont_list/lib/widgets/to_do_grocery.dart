@@ -14,7 +14,6 @@ class ToDoListGrocery extends StatelessWidget {
 
   final Grocery grocery;
   final bool completed;
-
   final ToDoListChangedCallback onListChanged;
   final ToDoListRemovedCallback onDeleteGrocery;
 
@@ -30,9 +29,7 @@ class ToDoListGrocery extends StatelessWidget {
             }
           : null,
       leading: CircleAvatar(
-
         child: Text(grocery.increase().toString()),
-        
       ),
       title: Text(
         grocery.name,

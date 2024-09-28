@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 typedef ToDoListAddedCallback = Function(
-    double price, String value, TextEditingController textConroller, TextEditingController textController2);
+    double price, String value, TextEditingController textController, TextEditingController textController2);
 
 class ToDoDialog extends StatefulWidget {
   const ToDoDialog({
     super.key,
     required this.onListAdded,
+    required this.onPricesAdded,
   });
 
   final ToDoListAddedCallback onListAdded;
+  final Function(List<double>) onPricesAdded;
 
   @override
   State<ToDoDialog> createState() => _ToDoDialogState();
@@ -26,6 +28,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
   final ButtonStyle noStyle = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 20), backgroundColor: const Color.fromARGB(141, 191, 187, 186));
 
+  List<double> prices = [];
   
   @override
   Widget build(BuildContext context) {
@@ -64,16 +67,16 @@ class _ToDoDialogState extends State<ToDoDialog> {
             return ElevatedButton(
               key: const Key("OKButton"),
               style: yesStyle,
-              onPressed: price.text.isNotEmpty && _inputController.text.isNotEmpty
+              onPressed: _inputController2.text.isNotEmpty && _inputController.text.isNotEmpty
                   ? () {
                     String valueText = _inputController.text;
                     double priceText = double.parse(_inputController2.text);
+                    prices.add(priceText);
                     // https://stackoverflow.com/questions/56207275/how-can-i-get-int-data-from-texteditingcontroller-in-flutter
                     // To change the string pulled from string to an int
-                      setState(() {
-                        widget.onListAdded(priceText, valueText, _inputController, _inputController2);
-                        Navigator.pop(context);
-                      });
+                      widget.onListAdded(priceText, valueText, _inputController, _inputController2);
+                      widget.onPricesAdded(prices);
+                      Navigator.pop(context);
                     }
                   : null,
               child: const Text('OK'),

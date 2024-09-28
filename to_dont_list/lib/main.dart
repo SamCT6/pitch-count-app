@@ -14,6 +14,9 @@ class ToDoList extends StatefulWidget {
 class _ToDoListState extends State<ToDoList> {
   final List<Grocery> grocerys = [Grocery(name: "add your grocery", price: 0)];
   final _groceryset = <Grocery>{};
+  List<double> prices = [];
+
+
 
   void _handleListChanged(Grocery grocery, bool completed) {
     setState(() {
@@ -31,7 +34,6 @@ class _ToDoListState extends State<ToDoList> {
       } else {
         print("Making Undone");
         _groceryset.remove(grocery);
-        grocerys.insert(0, grocery);
       }
     });
   }
@@ -40,6 +42,7 @@ class _ToDoListState extends State<ToDoList> {
     setState(() {
       print("Deleting Grocery");
       grocerys.remove(grocery);
+      prices.remove(grocery.price);
     });
   }
 
@@ -48,6 +51,7 @@ class _ToDoListState extends State<ToDoList> {
       print("Adding new Grocery");
       Grocery grocery = Grocery(name: groceryText, price: price);
       grocerys.insert(0, grocery);
+      prices.add(price);
       textController.clear();
       textController2.clear();
     });
@@ -70,16 +74,51 @@ class _ToDoListState extends State<ToDoList> {
             );
           }).toList(),
         ),
-        floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (_) {
-                    return ToDoDialog(onListAdded: _handleNewGrocery);
-                  });
-            }));
-  }
+        floatingActionButton: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (_) {
+                  return ToDoDialog(onListAdded: _handleNewGrocery, 
+                  onPricesAdded: (List<double> prices) {  },
+                );
+              }
+            );
+          },
+        ),
+        ElevatedButton(
+          onPressed: () {
+            double total = prices.reduce((a,b) => a + b);
+            prices.reduce((a, b) => a + b);
+            // https://stackoverflow.com/questions/10405348/what-is-the-cleanest-way-to-get-the-sum-of-numbers-in-a-collection-list-in-dart
+            // -> to add the elementts of the list
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text("Total"),
+                  content: Text(total.toString()),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Close"),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          child: const Text("Info"),
+        ),
+      ],
+    ),
+  );
 }
 
 void main() {
@@ -87,4 +126,5 @@ void main() {
     title: 'Grossary List',
     home: ToDoList(),
   ));
+}
 }
