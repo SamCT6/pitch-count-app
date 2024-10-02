@@ -1,4 +1,6 @@
 // Started with https://docs.flutter.dev/development/ui/widgets-intro
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:flutter/material.dart';
 import 'package:to_dont_list/objects/Grocery.dart';
 import 'package:to_dont_list/widgets/to_do_grocery.dart';
@@ -12,7 +14,7 @@ class ToDoList extends StatefulWidget {
 }
 
 class _ToDoListState extends State<ToDoList> {
-  final List<Grocery> grocerys = [Grocery(name: "add your grocery", price: 0)];
+  final List<Grocery> grocerys = [];
   final _groceryset = <Grocery>{};
   List<double> prices = [];
 
@@ -50,6 +52,7 @@ class _ToDoListState extends State<ToDoList> {
     setState(() {
       print("Adding new Grocery");
       Grocery grocery = Grocery(name: groceryText, price: price);
+      grocery.count;
       grocerys.insert(0, grocery);
       prices.add(price);
       textController.clear();
@@ -101,7 +104,7 @@ class _ToDoListState extends State<ToDoList> {
               builder: (BuildContext context) {
                 return AlertDialog(
                   title: const Text("Total"),
-                  content: Text(total.toString()),
+                  content: Text("Your total is " + total.toString() ),
                   actions: [
                     TextButton(
                       onPressed: () {
@@ -114,11 +117,12 @@ class _ToDoListState extends State<ToDoList> {
               },
             );
           },
-          child: const Text("Info"),
+          child: const Text("Total"),
         ),
       ],
     ),
   );
+}
 }
 
 void main() {
@@ -126,5 +130,4 @@ void main() {
     title: 'Grossary List',
     home: ToDoList(),
   ));
-}
 }
