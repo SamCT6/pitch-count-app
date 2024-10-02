@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_dont_list/objects/Grocery.dart';
 
 typedef ToDoListAddedCallback = Function(
     double price, String value, TextEditingController textController, TextEditingController textController2);
