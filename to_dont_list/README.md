@@ -3,6 +3,7 @@
 Grocery List App
 
 Who is it for?
+
   It can work for all age range who wants to go Grocery shopping!
 
 Features
@@ -14,7 +15,9 @@ Features
 How it works
 
   a. The items are stored as a List<Grocery> 
+  
   b. Each grocery object has a price and name
+  
   c. Flutter's setState updates the display when ever the items are clicked
 
 ![Grocery homepage](https://github.com/user-attachments/assets/a809fd03-d1fc-432a-a59c-680bf4d097c5)
@@ -24,8 +27,11 @@ How it works
 Code Structure 
 
   I. Grocery Class
+  
   II. TodoList Widget
+  
   III. ToDoListGrocery Widget
+  
   VI. TodoDiaog widget
 
 Future Improvements
