@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_dont_list/objects/Grocery.dart';
 
 typedef ToDoListAddedCallback = Function(
     double price, String value, TextEditingController textController, TextEditingController textController2);
@@ -38,6 +39,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
+            key: const Key('Grocery'),
             controller: _inputController,
             decoration: const InputDecoration(labelText: 'Grocery name'),
           ),
@@ -62,7 +64,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
 
         // https://stackoverflow.com/questions/52468987/how-to-turn-disabled-button-into-enabled-button-depending-on-conditions
         ValueListenableBuilder<TextEditingValue>(
-          valueListenable: _inputController,
+          valueListenable: _inputController2,
           builder: (context, price, child) {
             return ElevatedButton(
               key: const Key("OKButton"),
