@@ -1,4 +1,4 @@
-# to_dont_list
+# to_dont_list - Grocery List
 
 Grocery List App
 
